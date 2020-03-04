@@ -55,7 +55,7 @@ export = async function MediaInfo(path: PathLike): Promise<MediaInfoResponse> {
     stream.on('close', () => {
       const newstream = createReadStream(path, {
         highWaterMark: 1024 * 1024,
-        start: seekTo,
+        start: seekTo === -1 ? size : seekTo,
       });
 
       newstream.on('data', (chunk) => {
